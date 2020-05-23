@@ -65,13 +65,16 @@ public class BattleDirector : StateMachine
                 .AddSkill<Punch>()
                 .AddSkill<MoveLeft>()
                 .AddSkill<MoveRight>(),
-
+            
             new UnitTemplate("Morty", 3, Color.red, isAI: true, ground)
                 .SetStats(UnitStats.CreateDefault().AddMaxHealth(UnityEngine.Random.Range(-40, 41)))
                 .AddSkill<Punch>()
                 .AddSkill<MoveLeft>()
                 .AddSkill<MoveRight>()
-                .SetBotProgram<NaivePuncherProgram>(),
+                .SetBotProgram<CowardProgram>(1)
+                .SetBotProgram<HealProgram>(2)
+                .SetBotProgram<FollowProgram>(3)
+                .SetBotProgram<PunchProgram>(4),
 
             new UnitTemplate("Penis", -3, Color.cyan, isAI: false, ground)
                 .SetStats(UnitStats.CreateDefault())
@@ -84,8 +87,11 @@ public class BattleDirector : StateMachine
                 .AddSkill<Punch>()
                 .AddSkill<MoveLeft>()
                 .AddSkill<MoveRight>()
-                .SetBotProgram<NaivePuncherProgram>()
-        };
+                .SetBotProgram<CowardProgram>(1)
+                .SetBotProgram<HealProgram>(2)
+                .SetBotProgram<FollowProgram>(3)
+                .SetBotProgram<PunchProgram>(4)
+    };
 
         var units = new List<Unit>();
 

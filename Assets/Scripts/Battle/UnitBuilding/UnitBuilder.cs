@@ -17,8 +17,12 @@ public class UnitBuilder : MonoBehaviour
         if (template.isAI)
         {
             var aiBot = fieldObject.AddComponent<AIBot>();
-            aiBot.program = template.botProgram;
-            aiBot.program.Init(unit);
+
+            foreach (var program in template.botPrograms)
+            {
+                aiBot.programs.Add(program);
+                program.Program.Init(unit);
+            }
         }
 
         unit.stats = template.stats;

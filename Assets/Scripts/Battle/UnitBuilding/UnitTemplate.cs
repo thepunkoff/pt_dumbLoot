@@ -15,7 +15,7 @@ public class UnitTemplate
     public UnitStats stats;
     public Action<Unit> onIconClicked;
     public Action<Unit> onDie;
-    public BotProgram botProgram;
+    public List<(BotProgram Program, int Priority)> botPrograms = new List<(BotProgram Program, int Priority)>();
 
     public UnitTemplate(string name, int x, Color color, bool isAI, GameObject ground)
     {
@@ -50,7 +50,7 @@ public class UnitTemplate
         return this;
     }
 
-    public UnitTemplate SetBotProgram<TProgram>() where TProgram : BotProgram
+    public UnitTemplate SetBotProgram<TProgram>(int priority) where TProgram : BotProgram
     {
         if (!isAI)
         {
@@ -58,7 +58,7 @@ public class UnitTemplate
             return this;
         }
 
-        botProgram = ScriptableObject.CreateInstance<TProgram>();
+        botPrograms.Add((ScriptableObject.CreateInstance<TProgram>(), priority));
         return this;
     }
 }

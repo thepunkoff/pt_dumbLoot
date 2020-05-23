@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class AIBot : MonoBehaviour
 {
-    public BotProgram program;
+    public List<(BotProgram Program, int Priority)> programs = new List<(BotProgram Program, int Priority)>();
 }

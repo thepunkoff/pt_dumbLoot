@@ -27,6 +27,12 @@ public class UnitStats
         return stats;
     }
 
+    public UnitStats SetHealth(int health)
+    {
+        this.health = health;
+        return this;
+    }
+
     public UnitStats AddMaxHealth(int health)
     {
         maxHealth += health;

@@ -23,15 +23,22 @@ public class EnemyTurnState : State
 
         while (EnoughActionPoints())
         {
-            if (!context.AllUnits.Any(x => !x.isAI))
-                yield return EndTurn();
+            foreach (var program in enemy.GetComponent<AIBot>().programs.OrderBy(x => x.Priority))
+            {
+                if (!EnoughActionPoints())
+                    break;
 
-            yield return enemy.GetComponent<AIBot>().program.Step(context);
+                if (!context.AllUnits.Any(x => !x.isAI))
+                    yield return EndTurn();
+
+                yield return StateMachine.StartCoroutine(program.Program.Step(context));
+            }
         }
 
         yield return EndTurn();
     }
 
+    // [ToDo] Решать более мудро. Полиморфично?
     private bool EnoughActionPoints()
     {
         return context.CurrentActions.Any(x => x.actionPoints <= enemy.stats.actionPoints);
